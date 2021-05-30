@@ -1,0 +1,61 @@
+import com.github.davidmc24.gradle.plugin.avro.GenerateAvroJavaTask
+
+plugins {
+    id 'java'
+    id "com.github.davidmc24.gradle.plugin.avro" version "1.2.0"
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    gradlePluginPortal()
+    mavenCentral()
+}
+
+dependencies {
+
+    implementation 'com.github.davidmc24.gradle.plugin:gradle-avro-plugin:1.2.0'
+
+    // https://mvnrepository.com/artifact/org.apache.avro/avro
+    implementation group: 'org.apache.avro', name: 'avro', version: '1.10.2'
+
+    // https://mvnrepository.com/artifact/org.apache.parquet/parquet-avro
+    implementation group: 'org.apache.parquet', name: 'parquet-avro', version: '1.12.0'
+
+    // https://mvnrepository.com/artifact/org.apache.avro/avro
+    implementation group: 'org.apache.avro', name: 'avro', version: '1.10.2'
+
+    // https://mvnrepository.com/artifact/org.apache.hadoop/hadoop-common
+    implementation group: 'org.apache.hadoop', name: 'hadoop-common', version: '3.3.0'
+
+    // https://mvnrepository.com/artifact/org.apache.hadoop/hadoop-mapreduce-client-core
+    implementation group: 'org.apache.hadoop', name: 'hadoop-mapreduce-client-core', version: '3.3.0'
+
+    // https://mvnrepository.com/artifact/org.springframework/spring-beans
+    implementation group: 'org.springframework', name: 'spring-beans', version: '5.3.7'
+
+
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+defaultTasks 'clean', 'build'
+
+test {
+    systemProperties 'property': 'value'
+}
+
+def generateAvro = tasks.register("generateAvro", GenerateAvroJavaTask) {
+    source("src/avro")
+    outputDir = file("dest/avro")
+}
+
+tasks.named("compileJava").configure {
+    source(generateAvro)
+}

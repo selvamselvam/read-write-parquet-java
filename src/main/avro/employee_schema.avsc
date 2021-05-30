@@ -1,0 +1,38 @@
+{
+"type": "record",
+"namespace": "com.careerdrill.entity",
+"name": "Employee",
+"fields": [
+  { "name": "userId", "type": "int" },
+  { "name": "firstName", "type": "string" },
+  { "name": "lastName", "type": "string" },
+  { "name": "age", "type": "int" },
+  {"name" : "address",
+                     "type" : {
+                           "type" : "record",
+                           "name" : "mailing_address",
+                           "fields" : [
+                              {"name" : "street",
+                               "type" : "string",
+                               "default" : "NONE"},
+
+                              {"name" : "city",
+                               "type" : "string",
+                               "default" : "NONE"},
+
+                              {"name" : "state_prov",
+                               "type" : "string",
+                               "default" : "NONE"},
+
+                              {"name" : "country",
+                               "type" : "string",
+                               "default" : "NONE"},
+
+                              {"name" : "zip",
+                               "type" : "string",
+                               "default" : "NONE"}
+                            ]},
+                            "default" : {}
+                  }
+]
+}
